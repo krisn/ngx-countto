@@ -3,7 +3,7 @@ import { CountToService } from './countto.service';
 
 @Component({
   selector: 'ngx-countto',
-  template: `{{state.value}}`
+  template: `{{counttoService.progress}}`
 })
 export class CountToComponent implements OnDestroy {
 
@@ -18,6 +18,8 @@ export class CountToComponent implements OnDestroy {
 
   constructor(public counttoService: CountToService) {
     this.state = counttoService.state;
+    console.log('Srv state', this.state);
+
   }
 
   ngOnDestroy() {

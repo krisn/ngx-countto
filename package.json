@@ -9,6 +9,9 @@
     "docs:serve": "npm run docs:build -- -s",
     "docs:watch": "npm run docs:build -- -s -w",
     "lint": "tslint --type-check --project tsconfig.json src/**/*.ts",
+    "lite": "lite-server",
+    "playground:build": "tsc -p playground -w",
+    "playground": "concurrently \"npm run build:watch\" \"npm run playground:build\" \"npm run lite\"",
     "test": "tsc && karma start"
   },
   "repository": {
@@ -21,13 +24,13 @@
   },
   "keywords": [
     "angular",
-    "count",
-    "countto",
-    "counting"
+    "counter",
+    "counting",
+    "countto"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "ssh://git@github.com/krisn:ngx-countto.git/issues"
+    "url": "ssh://git@github.com/krisn/ngx-countto.git/issues"
   },
   "devDependencies": {
     "@angular/common": "^4.0.0",
@@ -39,12 +42,14 @@
     "@compodoc/compodoc": "^1.0.0-beta.10",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
+    "angular-in-memory-web-api": "^0.3.2",
     "codelyzer": "~2.0.0",
+    "concurrently": "^3.4.0",
     "core-js": "^2.4.1",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-rename": "^1.2.2",
-    "gulp-rollup": "^2.11.0",
+    "gulp-rollup": "^2.15.0",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",
     "karma": "~1.4.1",
@@ -53,17 +58,19 @@
     "karma-coverage-istanbul-reporter": "^0.2.0",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "lite-server": "^2.3.0",
     "node-sass": "^4.5.2",
     "node-sass-tilde-importer": "^1.0.0",
     "node-watch": "^0.5.2",
     "protractor": "~5.1.0",
-    "rollup": "^0.41.6",
+    "rollup": "^0.49.3",
     "run-sequence": "^1.2.2",
-    "rxjs": "^5.4.0",
+    "rxjs": "^5.1.0",
+    "systemjs": "^0.20.12",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "~2.2.0",
-    "zone.js": "^0.8.11"
+    "zone.js": "^0.8.4"
   },
   "engines": {
     "node": ">=6.0.0"
