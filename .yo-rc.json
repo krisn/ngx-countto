@@ -1,0 +1,7 @@
+{
+  "generator-angular2-library": {
+    "promptValues": {
+      "gitRepositoryUrl": "ssh://git@github.com/krisn/ngx-countto.git"
+    }
+  }
+}

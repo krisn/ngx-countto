@@ -1,0 +1,31 @@
+{
+  "name": "ngx-countto",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:krisn/ngx-countto.git"
+  },
+  "author": {
+    "name": "Kris Nyunt",
+    "email": "kris.nyunt@gmail.com"
+  },
+  "keywords": [
+    "angular",
+    "count",
+    "countto",
+    "counting"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "ssh://git@github.com/krisn/ngx-countto.git/issues"
+  },
+  "main": "ngx-countto.umd.js",
+  "module": "ngx-countto.js",
+  "jsnext:main": "ngx-countto.js",
+  "typings": "ngx-countto.d.ts",
+  "peerDependencies": {
+    "@angular/core": "^4.0.0",
+    "rxjs": "^5.4.0",
+    "zone.js": "^0.8.11"
+  }
+}
