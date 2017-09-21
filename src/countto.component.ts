@@ -3,7 +3,10 @@ import { CountToService } from './countto.service';
 
 @Component({
   selector: 'ngx-countto',
-  template: `{{counttoService.progress}}`
+  template: `
+    {{counttoService.progress}} - {{state | async}}
+    <code>state | async</code>:
+  `
 })
 export class CountToComponent implements OnDestroy {
 
