@@ -11,7 +11,7 @@ import { CountToModule, CountToService } from '../dist/ngx-countto.umd.js';
 @Component({
   selector: 'app-root',
   template: `
-    <ngx-countto [to]="20">10</ngx-countto> || <ngx-countto [id]="'ctid'" [to]="120">100</ngx-countto>
+    <ngx-countto [to]="20">10</ngx-countto> || <ngx-countto [id]="'ctid'" [from]=990 [to]="1010"></ngx-countto>
   `
 })
 class AppComponent implements OnInit {

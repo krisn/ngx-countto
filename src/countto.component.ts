@@ -9,6 +9,7 @@ import * as Rx from 'rxjs/Rx';
 export class CountToComponent implements OnDestroy, AfterContentInit {
 
   @Input() id = 'countto';
+  @Input() from = 0;
   @Input() to: number;
   @Input() ease;
   @Input() duration;
@@ -18,7 +19,7 @@ export class CountToComponent implements OnDestroy, AfterContentInit {
   state: any;
   progress: number;
   output: any;
-  from: number;
+  // from: number;
   speed = 100;
 
   constructor(private counttoService: CountToService,
@@ -27,9 +28,10 @@ export class CountToComponent implements OnDestroy, AfterContentInit {
   }
 
   ngAfterContentInit() {
-    this.from = this.elementRef.nativeElement.innerText || 0;
+    // this.from = this.elementRef.nativeElement.innerHTML || 0;
     this.progress = this.from;
-    this.output = this.format(this.from);
+    this.output = this.from;
+    // this.output = this.format(0, this.from);
     this.counttoService.register(this.id, () => {
       this.start();
     });
@@ -42,18 +44,13 @@ export class CountToComponent implements OnDestroy, AfterContentInit {
   private start() {
     Rx.Observable
       .interval(this.speed)
-      .take(this.to + 1)
-      .map(this.format)
+      .take(this.to - this.from)
       .subscribe(val => {
-        this.output = val;
+        this.progress = val + this.from;
+        this.output = val + this.from;
+        this.output = this.output > 1000 ? (this.output / 1000).toFixed(3) + 'K' : this.output;
         // console.log(this.output);
       });
-  }
-
-  private format(val) {
-    this.progress = val;
-    val = val > 10 ? val + '' : val;
-    return val;
   }
 
   isStarted(): boolean {
