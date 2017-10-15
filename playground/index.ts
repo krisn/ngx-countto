@@ -10,7 +10,7 @@ import { CountToModule, CountToService } from '../dist/ngx-countto.umd.js';
 
 @Component({
   selector: 'app',
-  template: `To: <ngx-countto [begin]="0"></ngx-countto>`
+  template: `<ngx-countto [to]="20">1</ngx-countto>`
 })
 class AppComponent implements OnInit {
 
@@ -19,9 +19,9 @@ class AppComponent implements OnInit {
   ngOnInit() {
     this.counttoService.start();
 
-    const t = setTimeout(() => {
-      this.counttoService.done();
-    }, 3000);
+    // const t = setTimeout(() => {
+    //   this.counttoService.start();
+    // }, 3000);
   }
 }
 

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-
+// import * as Rx from 'rxjs/Rx';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
@@ -21,7 +22,8 @@ const clamp = (n, min, max) => {
 @Injectable()
 export class CountToService {
 
-  /** Progress state */
+  listeners: any = {};
+  events: any;
   state = new Subject();
 
   /** Trickling stream */
@@ -35,12 +37,41 @@ export class CountToService {
 
   constructor() {
 
-    this.trickling.switchMap(() => {
-      return Observable
+    this.events = Observable.from(this.state);
+
+    this.events.subscribe(
+      ({id, args}) => {
+        console.log('srv sub', id, args);
+        let ct = 0;
+        const fnCheck = () => {
+          if (ct > 2) { return; }
+          if (!this.listeners[id]) {
+            ct++;
+            window.setTimeout(fnCheck, 500);
+          } else {
+            for (const listener of this.listeners[id]) {
+              listener(...args);
+            }
+          }
+        }
+        fnCheck();
+      });
+
+    /*this.trickling.switchMap(() => {
+      return Rx.Observable
         .timer(0, this.trickleSpeed)
         .takeWhile(() => this.isStarted())
         .do(() => this.inc());
-    }).subscribe();
+    }).subscribe();*/
+  }
+
+  register(id, listener) {
+    if (!this.listeners[id]) {
+      this.listeners[id] = [];
+    }
+
+    this.listeners[id].push(listener);
+    console.log('srv reg', id, this.listeners);
   }
 
   /** Increment Progress */
@@ -48,7 +79,7 @@ export class CountToService {
     let n = this.progress;
     /** if it hasn't start, start */
     if (!this.isStarted()) {
-      this.start();
+      this.start('');
     } else {
       if (typeof amount !== 'number') {
         if (n >= 0 && n < 0.2) {
@@ -99,17 +130,19 @@ export class CountToService {
   }
 
   /** Start */
-  start() {
-    console.log('Srv start');
-    if (!this.isStarted()) {
+  start(id) {
+    id = id || 'countto';
+    console.log('srv start', id);
+    this.state.next({id});
+
+    /*if (!this.isStarted()) {
       this.set(this.minimum);
     }
-    this.trickling.next();
+    this.trickling.next();*/
   }
 
   /** Done */
   done() {
-    console.log('Srv stop');
     /** if started complete the progress */
     if (this.isStarted()) {
       this.set(.3 + .5 * Math.random());
