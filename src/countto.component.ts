@@ -4,9 +4,7 @@ import * as Rx from 'rxjs/Rx';
 
 @Component({
   selector: 'ngx-countto',
-  template: `
-    {{output}}
-  `
+  template: `{{output}}`
 })
 export class CountToComponent implements OnDestroy, AfterContentInit {
 
@@ -31,10 +29,9 @@ export class CountToComponent implements OnDestroy, AfterContentInit {
   ngAfterContentInit() {
     this.from = this.elementRef.nativeElement.innerText || 0;
     this.progress = this.from;
-    console.log('com from', this.from);
-
+    this.output = this.format(this.from);
     this.counttoService.register(this.id, () => {
-      this.start(this);
+      this.start();
     });
   }
 
@@ -42,19 +39,19 @@ export class CountToComponent implements OnDestroy, AfterContentInit {
     // this.counttoService.state.unsubscribe();
   }
 
-  private start(scope) {
-    console.log('com', scope.to, scope.progress);
+  private start() {
     Rx.Observable
-      .interval(scope.speed)
-      .take(scope.to + 1)
-      .map(scope.inc)
+      .interval(this.speed)
+      .take(this.to + 1)
+      .map(this.format)
       .subscribe(val => {
-        scope.output = val;
-        console.log(scope.output);
+        this.output = val;
+        // console.log(this.output);
       });
   }
 
-  private inc(val) {
+  private format(val) {
+    this.progress = val;
     val = val > 10 ? val + '' : val;
     return val;
   }

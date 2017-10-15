@@ -9,8 +9,10 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { CountToModule, CountToService } from '../dist/ngx-countto.umd.js';
 
 @Component({
-  selector: 'app',
-  template: `<ngx-countto [to]="20">1</ngx-countto>`
+  selector: 'app-root',
+  template: `
+    <ngx-countto [to]="20">10</ngx-countto> || <ngx-countto [id]="'ctid'" [to]="120">100</ngx-countto>
+  `
 })
 class AppComponent implements OnInit {
 
@@ -19,9 +21,9 @@ class AppComponent implements OnInit {
   ngOnInit() {
     this.counttoService.start();
 
-    // const t = setTimeout(() => {
-    //   this.counttoService.start();
-    // }, 3000);
+    const t = setTimeout(() => {
+      this.counttoService.start('ctid');
+    }, 3000);
   }
 }
 
