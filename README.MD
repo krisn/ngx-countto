@@ -1,6 +1,10 @@
 # ngx-countto
 
+Angular 2+ component that counts up to a specified number. And accompanying service to trigger the action at a desired time or event. Supports multiple components and different starting times.
+
 ## Installation
+
+[![NPM](https://nodei.co/npm/ngx-countto.png?downloads=true&stars=true)](https://nodei.co/npm/ngx-countto/)
 
 To install this library, run:
 
@@ -8,63 +12,65 @@ To install this library, run:
 $ npm install ngx-countto --save
 ```
 
-## Consuming your library
+## Usage
 
-Once you have published your library to npm, you can import your library in any Angular application by running:
+Add the component in your Angular application's template:
 
-```bash
-$ npm install ngx-countto
+```html
+<!-- You can now use your library component in app.component.html -->
+<h1>{{title}}</h1>
+<ngx-countto [to]=10></ngx-countto>
 ```
 
-and then from your Angular `AppModule`:
+And in your Angular `AppModule`, import the library then trigger the counting by calling `CountToService`'s function `start()` anywhere from your application logic:
 
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 
-// Import your library
-import { SampleModule } from 'ngx-countto';
+// Import the library
+import { CountToModule, CountToService } from 'ngx-countto';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [ AppComponent ],
   imports: [
     BrowserModule,
-
-    // Specify your library as an import
-    LibraryModule
+    // Specify the library as an import
+    CountToModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ CountToService ],
+  bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {}
+
+@Component()
+class AppComponent implements OnInit {
+  // Inject the service into your component
+  constructor(private counttoService: CountToService) {}
+  ngOnInit() {
+    // Start the counting via the service
+    this.counttoService.start();
+  }
+}
 ```
 
-Once your library is imported, you can use its components, directives and pipes in your Angular application:
 
-```xml
-<!-- You can now use your library component in app.component.html -->
-<h1>
-  {{title}}
-</h1>
-<sampleComponent></sampleComponent>
-```
+## Parameters
 
-## Development
+Parameter | Type | Default | Description 
+--- | --- | --- | ---
+**id** | *string* | `countto` | Element ID of the component. For multi-component support
+**from** | *number* | `0` | Starting number
+**to** | *number* | `from + 10` | Ending number 
+**duration** | *number* | `?` | Not yet supported
 
-To generate all `*.js`, `*.d.ts` and `*.metadata.json` files:
 
-```bash
-$ npm run build
-```
+## Examples
 
-To lint all `*.ts` files:
-
-```bash
-$ npm run lint
+```html
+<ngx-countto [from]=1 [to]=10></ngx-countto>
+<ngx-countto [id]="'countto_01'" [to]=100></ngx-countto>
 ```
 
 ## License

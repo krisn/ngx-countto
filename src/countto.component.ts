@@ -19,7 +19,6 @@ export class CountToComponent implements OnDestroy, AfterContentInit {
   state: any;
   progress: number;
   output: any;
-  // from: number;
   speed = 100;
 
   constructor(private counttoService: CountToService,
