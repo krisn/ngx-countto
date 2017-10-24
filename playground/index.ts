@@ -13,7 +13,7 @@ import { CountToModule, CountToService } from '../dist/ngx-countto.umd.js';
   template: `
     <ngx-countto [to]="200"></ngx-countto> || 
     <ngx-countto [id]="'ctid'" [from]=990 [to]="1010"></ngx-countto> || 
-    <ngx-countto [id]="'c2id'" [to]="5000000"></ngx-countto>
+    <ngx-countto [id]="'c2id'" [to]="18000000"></ngx-countto>
   `
 })
 class AppComponent implements OnInit {

@@ -20,13 +20,6 @@ export class CountToComponent implements OnDestroy, AfterContentInit {
   progress: number;
   output: any;
   speed = 100;
-  totals: any = {
-    trillions: 0,
-    billions: 0,
-    millions: 0,
-    thousands: 0,
-    digits: 0,
-  };
 
   constructor(private counttoService: CountToService,
               private elementRef: ElementRef) {
@@ -38,35 +31,33 @@ export class CountToComponent implements OnDestroy, AfterContentInit {
     this.progress = this.from;
     this.output = this.from;
 
-    this.totals.trillions = this.to >= 1000000000000 ? Math.floor(this.to / 1000000000000) : 0;
-    this.totals.billions = this.to >= 1000000000 ? Math.floor(this.to / 1000000000) : 0;
-    this.totals.millions = this.to >= 1000000 ? Math.floor(this.to / 1000000) : 0;
-    this.totals.thousands = this.to >= 1000 ? Math.floor(this.to / 1000) : 0;
-    this.totals.digits = this.to >= 1000 ? 999 : this.to;
-    const self = this;
-    console.log('self.totals', self.totals);
-    const total_output = Object.keys(this.totals).reduce((previous, current) => {
-      previous += self.totals[current];
+    const totals = {
+      trillions : this.to >= 1000000000000000 ? 999 : Math.floor(this.to / 1000000000000),
+      billions  : this.to >= 1000000000000 ? 999 : Math.floor(this.to / 1000000000),
+      millions  : this.to >= 1000000000 ? 999 : Math.floor(this.to / 1000000),
+      thousands : this.to >= 1000000 ? 999 : Math.floor(this.to / 1000),
+      digits    : this.to >= 1000 ? 999 : this.to,
+    };
+
+    console.log('self.totals', totals);
+    const total_output = Object.keys(totals).reduce((previous, current) => {
+      previous += totals[current];
       return previous;
     }, 0);
     console.log('total_output', total_output);
-    this.speed = Math.floor(this.duration / total_output);
+    this.speed = Math.floor(this.duration / 3000); // total_output);
 
     this.counttoService.register(this.id, () => {
-      this.start(this.totals.digits, this.speed, '',
-        this.totals.thousands ? () => { this.start(this.totals.thousands, this.speed, 'K',
-          this.totals.millions ? () => { this.start(this.totals.millions, this.speed, 'M',
-            this.totals.billions ? () => { this.start(this.totals.billions, this.speed, 'B',
-              this.totals.trillions ? () => { this.start(this.totals.trillions, this.speed, 'T',
+      this.start(totals.digits, this.speed, 1, '',
+        totals.thousands ? () => { this.start(totals.thousands, this.speed, 1, 'K',
+          totals.millions ? () => { this.start(totals.millions, this.speed, 1, 'M',
+            totals.billions ? () => { this.start(totals.billions, this.speed, 1, 'B',
+              totals.trillions ? () => { this.start(totals.trillions, this.speed, 1, 'T',
                 null
-                );
-              } : null
-              );
-            } : null
-            );
-          } : null
-          );
-        } : null
+                ); } : null
+              ); } : null
+            ); } : null
+          ); } : null
       );
     });
   }
@@ -75,12 +66,12 @@ export class CountToComponent implements OnDestroy, AfterContentInit {
     // this.counttoService.state.unsubscribe();
   }
 
-  private start(take, speed, postfix = '', next = null, delay = 0) {
+  private start(take, speed, steps = 1, postfix = '', next = null, delay = 0) {
     console.log('take-speed-delay', take, speed, delay);
     Rx.Observable
       .timer(delay, speed)
       .take(take + 1)
-      .map(val => val + postfix)
+      .map(val => `${val * steps} ${postfix}`)
       .finally(next)
       .subscribe(val => {
         // this.progress = val + this.from;
