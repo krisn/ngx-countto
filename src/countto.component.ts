@@ -11,7 +11,7 @@ export class CountToComponent implements OnDestroy, AfterContentInit {
   @Input() id = 'countto';
   @Input() from = 0;
   @Input() to: number;
-  @Input() ease;
+  @Input() decimals = 0;
   @Input() duration = 5000;
 
   @Output() onFinish: EventEmitter<any>;
@@ -37,18 +37,21 @@ export class CountToComponent implements OnDestroy, AfterContentInit {
       { range: 'millions',  postfix: 'M', count: this.to >= 1000000000 ? 999 : Math.floor(this.to / 1000000) },
       { range: 'thousands', postfix: 'K', count: this.to >= 1000000 ? 999 : Math.floor(this.to / 1000) },
       { range: 'digits',    postfix: '',  count: this.to >= 1000 ? 999 : this.to },
+      // { range: 'hundreds',  postfix: '',  count: this.to >= 1000 ? 900 : this.to - 99 },
+      // { range: 'digits',    postfix: '',  count: this.to >= 100 ? 99 : this.to },
     ];
     const output = ranges.reduce((acc, curr) => {
       acc.total += curr.count;
-      const speed = curr.count > 500 ? 10
-                  : curr.count > 100 ? 50
-                  : curr.count > 50 ? 100
-                  : 100;
       const steps = curr.count > 500 ? 10
                   : curr.count > 100 ? 5
                   : 1;
+      const count = Math.floor(curr.count / steps);
+      const speed = count > 500 ? 5
+                  : count > 100 ? 10
+                  : count > 50 ? 50
+                  : 100;
       const fn = acc.next;
-      acc.next = curr.count > 0 ? () => this.start(Math.floor(curr.count / steps), speed, steps, curr.postfix, fn) : null;
+      acc.next = curr.count > 0 ? () => this.start(count, speed, steps, curr.postfix, fn) : null;
       return acc;
     }, { total: 0, next: null });
     console.log('output', output);
@@ -63,8 +66,8 @@ export class CountToComponent implements OnDestroy, AfterContentInit {
     // this.counttoService.state.unsubscribe();
   }
 
-  private start(take, speed, steps = 1, postfix = '', next = null, delay = 10) {
-    console.log('take-speed-postfix', take, speed, postfix);
+  private start(take, speed, steps = 1, postfix = '', next = null, delay = 0) {
+    console.log('take-speed-steps-postfix', take, speed, steps, postfix);
     Rx.Observable
       .timer(delay, speed)
       .take(take + 1)
