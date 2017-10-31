@@ -1,6 +1,6 @@
 # ngx-countto
 
-Angular 2+ component that counts up to a specified number. And accompanying service to trigger the action at a desired time or event. Supports multiple components and different starting times.
+Angular 2+ component that counts up to a specified number. And accompanying service to trigger the action at a desired time or event. Supports multiple instances and different starting times.
 
 ## Installation
 
@@ -61,17 +61,32 @@ class AppComponent implements OnInit {
 Parameter | Type | Default | Description 
 --- | --- | --- | ---
 **id** | *string* | `countto` | Element ID of the component. For multi-component support
-**from** | *number* | `0` | Starting number
+**from** | *number* | `0` | Starting number (Not yet supported)
 **to** | *number* | `from + 10` | Ending number 
-**duration** | *number* | `?` | Not yet supported
+**duration** | *number* | `?` | Duration (Not yet supported)
 
 
 ## Examples
 
 ```html
-<ngx-countto [from]=1 [to]=10></ngx-countto>
-<ngx-countto [id]="'countto_01'" [to]=100></ngx-countto>
+<ngx-countto [from]=1 [to]=100></ngx-countto>
+<ngx-countto [id]="'countto_01'" [to]=18000></ngx-countto>
 ```
+
+```typescript
+class AppComponent implements OnInit {
+
+  constructor(private counttoService: CountToService) {}
+  ngOnInit() {
+    this.counttoService.start();
+
+    setTimeout(() => {
+      this.counttoService.start('countto_01');
+    }, 2000);
+  }
+}
+```
+
 
 ## License
 
