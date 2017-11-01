@@ -2,6 +2,13 @@
 
 Angular 2+ component that counts up to a specified number. And accompanying service to trigger the action at a desired time or event. Supports multiple instances and different starting times.
 
+[Preview in Plunker](https://plnkr.co/4ixQIdmUN0xsozODyDmw)
+
+<iframe style="border: 1px solid #999;width: 100%; height: 120px"
+        src="https://embed.plnkr.co/4ixQIdmUN0xsozODyDmw?t=readme&show=preview" frameborder="0">
+  Loading plunk...
+</iframe>
+
 ## Installation
 
 [![NPM](https://nodei.co/npm/ngx-countto.png?downloads=true&stars=true)](https://nodei.co/npm/ngx-countto/)
@@ -19,7 +26,7 @@ Add the component in your Angular application's template:
 ```html
 <!-- You can now use your library component in app.component.html -->
 <h1>{{title}}</h1>
-<ngx-countto [to]=10></ngx-countto>
+<ngx-countto [to]=100></ngx-countto>
 ```
 
 And in your Angular `AppModule`, import the library then trigger the counting by calling `CountToService`'s function `start()` anywhere from your application logic:

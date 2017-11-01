@@ -11,22 +11,33 @@ import { CountToModule, CountToService } from '../dist/ngx-countto.umd.js';
 @Component({
   selector: 'app-root',
   template: `
-    <ngx-countto [to]="200"></ngx-countto> || 
-    <ngx-countto [id]="'c1id'" [from]=990 [to]="1050"></ngx-countto> || 
-    <ngx-countto [id]="'c2id'" [to]="18000000"></ngx-countto>
-  `
+  <div>
+    <h2>{{name}}</h2>
+    <ngx-countto [to]="100"></ngx-countto><br/>
+    <ngx-countto [id]="'ctid2'" [from]=0 [to]="3050" class="ctid2"></ngx-countto><br/> 
+    <ngx-countto [id]="'ctid1'" [to]="18000000" class="ctid1"></ngx-countto>
+  </div>
+  `,
+  styles: [`
+    .ctid1 { color: red; font-size: 32px; }
+    .ctid2 { color: blue; font-size: 24px; }
+  `]
 })
 class AppComponent implements OnInit {
 
   constructor(private counttoService: CountToService) {}
 
   ngOnInit() {
+    // starts every counter without an id
     this.counttoService.start();
-    this.counttoService.start('c2id');
 
+    // starts 'ctid1'
+    this.counttoService.start('ctid1');
+
+    // delayed start for 'ctid2'
     const t = setTimeout(() => {
-      this.counttoService.start('c1id');
-    }, 3000);
+      this.counttoService.start('ctid2');
+    }, 5000);
   }
 }
 
