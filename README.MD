@@ -4,11 +4,6 @@ Angular 2+ component that counts up to a specified number. And accompanying serv
 
 [Preview in Plunker](https://plnkr.co/4ixQIdmUN0xsozODyDmw)
 
-<iframe style="border: 1px solid #999;width: 100%; height: 120px"
-        src="https://embed.plnkr.co/4ixQIdmUN0xsozODyDmw?t=readme&show=preview" frameborder="0">
-  Loading plunk...
-</iframe>
-
 ## Installation
 
 [![NPM](https://nodei.co/npm/ngx-countto.png?downloads=true&stars=true)](https://nodei.co/npm/ngx-countto/)
