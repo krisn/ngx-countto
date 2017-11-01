@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
-
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
 // import * as Rx from 'rxjs/Rx';
-import 'rxjs/add/observable/timer';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/takeWhile';
+import { Subject, Observable } from 'rxjs/Rx';
+//import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CountToService {

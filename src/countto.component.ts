@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, AfterContentInit, ElementRef, OnDestroy } from '@angular/core';
-import { CountToService } from './countto.service';
 import * as Rx from 'rxjs/Rx';
+import { CountToService } from './countto.service';
 
 @Component({
   selector: 'ngx-countto',
