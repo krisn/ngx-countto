@@ -29,7 +29,7 @@ class AppComponent implements OnInit {
 
   ngOnInit() {
     // starts every counter without an id
-    this.counttoService.start();
+    // this.counttoService.start();
 
     // starts 'ctid1'
     this.counttoService.start('ctid1');

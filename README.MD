@@ -4,6 +4,10 @@ Angular 2+ component that counts up to a specified number. And accompanying serv
 
 [Preview in Plunker](https://plnkr.co/4ixQIdmUN0xsozODyDmw)
 
+[![npm version](https://badge.fury.io/js/ngx-countto.svg)](https://badge.fury.io/js/ngx-countto)
+[![license](https://img.shields.io/npm/l/ngx-countto.svg)](https://www.npmjs.com/package/ngx-countto)
+
+
 ## Installation
 
 [![NPM](https://nodei.co/npm/ngx-countto.png?downloads=true&stars=true)](https://nodei.co/npm/ngx-countto/)
