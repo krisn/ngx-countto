@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-// import * as Rx from 'rxjs/Rx';
 import { Subject, Observable } from 'rxjs/Rx';
-//import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CountToService {
@@ -18,7 +16,6 @@ export class CountToService {
 
     this.events.subscribe(
       ({id, args}) => {
-        // console.log('srv sub', id, args);
         let ct = 0;
         const fnCheck = () => {
           if (ct > 2) { return; }
@@ -42,13 +39,11 @@ export class CountToService {
     }
 
     this.listeners[id].push(listener);
-    // console.log('srv reg', id, this.listeners);
   }
 
   /** Start counting **/
   start(id) {
     id = id || 'countto';
-    // console.log('srv start', id);
     this.state.next({id});
   }
 }

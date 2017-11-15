@@ -54,7 +54,7 @@ export class CountToComponent implements OnDestroy, AfterContentInit {
       acc.next = curr.count > 0 ? () => this.start(count, speed, steps, curr.postfix, fn) : null;
       return acc;
     }, { total: 0, next: null });
-    console.log('output', output);
+    // console.log('output', output);
     // this.speed = Math.floor(this.duration / output.total);
 
     this.counttoService.register(this.id, () => {
@@ -67,7 +67,7 @@ export class CountToComponent implements OnDestroy, AfterContentInit {
   }
 
   private start(take, speed, steps = 1, postfix = '', next = null, delay = 0) {
-    console.log('take-speed-steps-postfix', take, speed, steps, postfix);
+    // console.log('take-speed-steps-postfix', take, speed, steps, postfix);
     Rx.Observable
       .timer(delay, speed)
       .take(take + 1)
